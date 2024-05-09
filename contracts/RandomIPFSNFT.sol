@@ -78,7 +78,7 @@ contract RandomIPFSNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     i_mintFee = mintFee;
     i_callbackGasLimit = callbackGasLimit;
     s_tokenCounter = 0;
-    s_dogTokenUris = dogTokenUris;
+    _initializeContract(dogTokenUris);
   }
 
   function requestNFT() public payable returns (uint256 requestId) {
@@ -120,13 +120,15 @@ contract RandomIPFSNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
   ) public pure returns (Breed) {
     uint256 cumulativeSum = 0;
     uint256[3] memory chanceArray = getChanceArray();
+    // Pug = 0 - 9  (10%)
+    // Shiba-inu = 10 - 39  (30%)
+    // St. Bernard = 40 = 99 (60%)
     // moddedRng = 25
     // [moddedRng = 25, i = 0, cumulativeSum = 0, chanceArray[i] = 10],
     // [moddedRng = 25, i = 1, cumulativeSum = 10, chanceArray[i] = 40]
+    // [moddedRng = 25, i = 2, cumulativeSum = 50, chanceArray[i] = 100]
     for (uint256 i = 0; i < chanceArray.length; i++) {
-      if (
-        moddedRng >= cumulativeSum && moddedRng < cumulativeSum + chanceArray[i]
-      ) {
+      if (moddedRng >= cumulativeSum && moddedRng < chanceArray[i]) {
         return Breed(i);
       }
       cumulativeSum += chanceArray[i];
@@ -144,6 +146,14 @@ contract RandomIPFSNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     if (!success) {
       revert RandomIpfsNft__TransferFailed();
     }
+  }
+
+  function _initializeContract(string[3] memory dogTokenUris) private {
+    if (s_initialized) {
+      revert RandomIpfsNft__AlreadyInitialized();
+    }
+    s_dogTokenUris = dogTokenUris;
+    s_initialized = true;
   }
 
   function getMintFee() public view returns (uint256) {

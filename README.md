@@ -19,10 +19,13 @@ _This repo has been updated to work with Sepolia over Goerli._
 We go through creating 3 different kinds of NFTs.
 
 1. A Basic NFT
-2. IPFS Hosted NFT
+2. IPFS Hosted NFT (Pros: cheap. Cons: Someone needs to pin the data.)
    1. That uses Randomness to generate a unique NFT
-3. SVG NFT (Hosted 100% on-chain)
+3. SVG NFT (Hosted 100% on-chain) (Pros: the data on chain! Cons: Much more expensive!)
    1. Uses price feeds to be dynamic
+   2. Logic:
+      1. If price of ETH is above X -> Happy face
+      2. If it's below -> Frown face
 
 # Getting Started
 
