@@ -16,7 +16,9 @@ const SEPOLIA_RPC_URL =
   "https://eth-sepolia.g.alchemy.com/v2/YOUR-API-KEY";
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
-
+console.log(`SEPOLIA_RPC_URL: ${SEPOLIA_RPC_URL}`);
+console.log(`PRIVATE_KEY: ${PRIVATE_KEY}`);
+console.log(`ETHERSCAN_API_KEY: ${ETHERSCAN_API_KEY}`);
 module.exports = {
   defaultNetwork: "hardhat",
   networks: {

@@ -31,6 +31,7 @@ const metadataTemplate = {
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, log } = deployments;
   const { deployer } = await getNamedAccounts();
+  console.log("11111111111111");
   const chainId = network.config.chainId;
 
   let tokenUris;
